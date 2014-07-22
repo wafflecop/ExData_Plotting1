@@ -7,7 +7,7 @@ plot2 <- function() {
     unzip(filename)
   }
   
-  rows <- read.table("household_power_consumption.txt", header = TRUE, sep = ";", na.strings ="?", skip = 66636, nrows = 2880, stringsAsFactors = TRUE)
+  rows <- read.table(pipe('grep "^[1-2]/2/2007" "household_power_consumption.txt"'),header=FALSE, sep=';', stringsAsFactors = FALSE, na.strings = "?")
   header <- read.table("household_power_consumption.txt", header = TRUE, sep = ";", na.strings ="?", nrows = 1)
   colnames(rows) <- colnames(header)
   rows$DateTime <- as.POSIXct(paste(rows$Date, rows$Time, sep = " "), format = "%d/%m/%Y %H:%M:%S")
